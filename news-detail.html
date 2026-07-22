@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>게시글 상세 - 북항재개발 전문 G7부동산</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-md bg-background text-on-surface">
+<header class="bg-background dark:bg-on-background flex justify-between items-center h-16 px-edge-margin w-full sticky top-0 z-50 border-b border-outline-variant/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<h1 class="text-headline-md font-bold text-primary tracking-tight">북항재개발 전문 G7부동산</h1>
+</div>
+<nav class="hidden md:flex items-center gap-lg">
+<a href="index.html" class="flex items-center gap-2 text-on-surface-variant hover:opacity-80 transition-opacity min-h-[44px] min-w-[44px] justify-center">
+<span class="material-symbols-outlined">home</span>
+<span>홈</span>
+</a>
+<a href="news.html" class="flex items-center gap-2 text-primary font-bold hover:opacity-80 transition-opacity min-h-[44px] min-w-[44px] justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">newspaper</span>
+<span>재개발뉴스</span>
+</a>
+<a href="admin.html" class="flex items-center gap-2 text-on-surface-variant hover:opacity-80 transition-opacity min-h-[44px] min-w-[44px] justify-center">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span>관리자</span>
+</a>
+</nav>
+</header>
+
+<main class="flex-grow w-full max-w-4xl mx-auto px-edge-margin py-xl pb-24 md:pb-12">
+<div class="mb-6">
+<a href="news.html" class="inline-flex items-center gap-1 text-primary font-bold text-body-sm hover:underline">
+<span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
+<span>목록으로 돌아가기</span>
+</a>
+</div>
+
+<article id="detail-card" class="bg-surface rounded-2xl p-lg border border-outline-variant/30 shadow-sm">
+<div id="loading" class="py-12 text-center text-muted">
+<span class="material-symbols-outlined animate-spin text-4xl mb-2">progress_activity</span>
+<p>게시글을 불러오는 중입니다...</p>
+</div>
+
+<div id="detail-content" class="hidden">
+<div class="flex items-center justify-between border-b border-outline-variant/30 pb-4 mb-6">
+<div class="flex items-center gap-3">
+<span id="post-category" class="bg-weak-background text-primary font-bold px-3 py-1 rounded-full text-label-sm"></span>
+<span id="post-date" class="text-label-sm text-muted"></span>
+</div>
+<div id="admin-actions" class="hidden flex gap-2">
+<button id="edit-btn" class="px-3 py-1.5 bg-primary/10 text-primary rounded-lg text-body-sm font-bold hover:bg-primary/20 transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 16px;">edit</span>
+<span>수정</span>
+</button>
+<button id="delete-btn" class="px-3 py-1.5 bg-error/10 text-error rounded-lg text-body-sm font-bold hover:bg-error/20 transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 16px;">delete</span>
+<span>삭제</span>
+</button>
+</div>
+</div>
+
+<h1 id="post-title" class="text-headline-xl font-bold text-on-surface mb-6 leading-snug"></h1>
+<div id="post-markdown" class="prose max-w-none text-secondary"></div>
+</div>
+</article>
+</main>
+
+<footer class="w-full px-edge-margin py-xl flex flex-col gap-sm bg-surface-container-low border-t border-outline-variant/30 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<div class="font-bold text-on-surface text-body-md">북항재개발 프로 G7부동산</div>
+<div class="flex gap-md items-center">
+<a class="text-label-sm text-muted hover:text-primary" href="index.html">홈</a>
+<a class="text-label-sm text-muted hover:text-primary" href="news.html">게시판</a>
+<a class="text-label-sm text-primary font-bold hover:underline" href="admin.html">Agent Login</a>
+</div>
+</div>
+<p class="text-body-sm text-muted">© 2026 북항재개발 전문 부동산. All rights reserved.</p>
+</footer>
+
+<script src="db.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const postId = urlParams.get('id');
+
+  if (!postId) {
+    alert('올바르지 않은 접근입니다.');
+    window.location.href = 'news.html';
+    return;
+  }
+
+  const posts = await getPosts();
+  const post = posts.find(p => p.id === postId);
+
+  const loadingEl = document.getElementById('loading');
+  const contentEl = document.getElementById('detail-content');
+
+  if (!post) {
+    loadingEl.innerHTML = `
+      <span class="material-symbols-outlined text-4xl text-error mb-2">error</span>
+      <p class="text-headline-md text-on-surface">게시글을 찾을 수 없습니다.</p>
+      <a href="news.html" class="mt-4 inline-block text-primary underline">목록으로 돌아가기</a>
+    `;
+    return;
+  }
+
+  loadingEl.classList.add('hidden');
+  contentEl.classList.remove('hidden');
+
+  document.getElementById('post-title').textContent = post.title || '제목 없음';
+  document.getElementById('post-category').textContent = post.category || '일반';
+  document.getElementById('post-date').textContent = post.date || '';
+
+  const markdownContainer = document.getElementById('post-markdown');
+  markdownContainer.innerHTML = renderMarkdown(post.content || '');
+
+  if (isAdmin()) {
+    const adminActions = document.getElementById('admin-actions');
+    adminActions.classList.remove('hidden');
+
+    document.getElementById('edit-btn').addEventListener('click', () => {
+      window.location.href = `news-write.html?id=${post.id}`;
+    });
+
+    document.getElementById('delete-btn').addEventListener('click', async () => {
+      if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
+        const { syncResult } = await deletePost(post.id);
+        if (syncResult && !syncResult.success) {
+          alert('로컬 삭제 완료 (GitHub 동기화 경고: ' + syncResult.error + ')');
+        }
+        window.location.href = 'news.html';
+      }
+    });
+  }
+});
+</script>
+</body>
+</html>

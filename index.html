@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>북항재개발 전문 G7부동산</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+try{
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "tertiary-fixed": "#ffdbc8",
+                    "muted": "#8b95a1",
+                    "on-background": "#181c23",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#2d3038",
+                    "outline": "#727785",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed-variant": "#743500",
+                    "on-primary-container": "#fefcff",
+                    "tertiary-container": "#ba5900",
+                    "surface-tint": "#005bbe",
+                    "foreground": "#191f28",
+                    "weak-background": "#e8f3ff",
+                    "surface-dim": "#d8d9e3",
+                    "primary-container": "#1071e5",
+                    "tertiary-fixed-dim": "#ffb689",
+                    "on-secondary-container": "#586373",
+                    "surface-container-low": "#f2f3fd",
+                    "on-primary-fixed": "#001a40",
+                    "inverse-on-surface": "#eff0fa",
+                    "primary": "#3182f6",
+                    "on-surface-variant": "#414754",
+                    "on-surface": "#181c23",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#004491",
+                    "secondary-container": "#d5e0f3",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed": "#311300",
+                    "primary-fixed": "#d7e2ff",
+                    "secondary-fixed": "#d8e3f5",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#f9f9ff",
+                    "secondary": "#545f6e",
+                    "on-secondary-fixed-variant": "#3d4856",
+                    "surface-variant": "#e0e2ec",
+                    "outline-variant": "#c1c6d6",
+                    "on-tertiary-container": "#fffbff",
+                    "background": "#f9f9ff",
+                    "secondary-fixed-dim": "#bcc7d9",
+                    "surface-container-high": "#e6e8f2",
+                    "primary-fixed-dim": "#acc7ff",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e0e2ec",
+                    "on-secondary-fixed": "#111c29",
+                    "surface-container": "#ecedf7",
+                    "inverse-primary": "#acc7ff",
+                    "surface": "#f2f4f6",
+                    "tertiary": "#944600",
+                    "surface-container-lowest": "#ffffff"
+                },
+                "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px",
+                    "2xl": "1rem"
+                },
+                "spacing": {
+                    "md": "24px",
+                    "lg": "32px",
+                    "sm": "16px",
+                    "xs": "8px",
+                    "edge-margin": "20px",
+                    "xl": "48px",
+                    "2xl": "64px",
+                    "3xl": "96px"
+                },
+                "fontFamily": {
+                    "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+                    "body-md": ["Plus Jakarta Sans", "sans-serif"],
+                    "headline-xl": ["Plus Jakarta Sans", "sans-serif"],
+                    "label-sm": ["Plus Jakarta Sans", "sans-serif"],
+                    "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
+                    "body-sm": ["Plus Jakarta Sans", "sans-serif"]
+                },
+                "fontSize": {
+                    "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                    "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                    "headline-xl": ["36px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                    "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                    "headline-lg": ["30px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                    "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                }
+            }
+        }
+    }
+}catch(_e){}
+</script>
+</head>
+<body class="bg-background text-on-surface antialiased overflow-x-hidden min-h-screen flex flex-col">
+<header class="bg-background dark:bg-on-background flex justify-between items-center h-16 px-edge-margin w-full sticky top-0 z-50">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[#3182f6] dark:text-primary-fixed-dim" style='font-variation-settings: "FILL" 1;'>location_on</span>
+<span class="text-headline-md font-headline-md font-bold text-[#3182f6] dark:text-primary-fixed-dim">북항재개발 전문 G7부동산</span>
+</div>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="text-[#3182f6] dark:text-primary-fixed-dim font-bold hover:opacity-80 transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center" href="index.html">홈</a>
+<a class="text-on-surface-variant dark:text-muted hover:opacity-80 transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center" href="news.html">매물소식</a>
+<a class="text-on-surface-variant dark:text-muted hover:opacity-80 transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center" href="news.html">재개발뉴스</a>
+<a class="text-on-surface-variant dark:text-muted hover:opacity-80 transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center" href="#consultation">상담예약</a>
+</nav>
+<button class="md:hidden text-on-surface hover:opacity-80 transition-opacity p-2 min-h-[44px] min-w-[44px]">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<main class="flex-grow flex flex-col items-center pb-24 md:pb-0">
+<section class="w-full max-w-7xl mx-auto px-edge-margin py-3xl flex flex-col md:flex-row items-center gap-xl">
+<div class="flex-1 flex flex-col items-start gap-lg z-10">
+<div class="bg-weak-background text-[#3182f6] px-4 py-2 rounded-full text-label-sm font-label-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 16px;">star</span>
+<span>북항 랜드마크 전문</span>
+</div>
+<h1 class="text-headline-xl font-headline-xl text-on-surface tracking-tight leading-tight">
+                    북항의 정점,<br/>협성마리나G7 &amp; 롯데캐슬 드메르에서<br/>시작하는 프리미엄 라이프
+                </h1>
+<p class="text-body-md font-body-md text-secondary max-w-md">해양수도 부산의 랜드마크로 자리잡을 협성마리나G7과 롯데캐슬 드메르. 북항재개발 구역의 최고급 주거/업무 공간을 전문가의 시선으로 분석해 드립니다.</p>
+<a href="news.html" class="bg-[#3182f6] text-white h-[56px] px-8 rounded-[16px] font-bold text-body-md hover:opacity-90 transition-opacity flex items-center gap-2 shadow-[0_8px_24px_rgba(49,130,246,0.2)]">
+<span>프리미엄 매물 둘러보기</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+<div class="flex-1 w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden relative shadow-lg">
+<img class="w-full h-full object-cover" alt="Landmark render" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpq2WNfN5xWXXz-ZVoPPjFdteL19fAL36U94qIqzzUfYpsIaX1H42TjzKynoxZ-1EMwekNnqXNiJnVeHUYKLgY5TmgeeU-NWpgx7TO85QB56BpzpLQViWJfP_XqBB3_yUhgw00kv1FHwubVXYDz4IRmbJWYvHMqdqMtqYonl40tTHor6m3CmqpG3XircoVL286tBuojS99usxYrBzHMhwC5xWZRFChFsTv-ygzBk3VJ_127FgamUAD"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+</div>
+</section>
+
+<section id="board-preview-section" class="w-full max-w-7xl mx-auto px-edge-margin py-2xl flex flex-col gap-lg border-t border-outline-variant/30">
+<div class="flex justify-between items-end">
+<div class="flex flex-col gap-xs">
+<h2 class="text-headline-lg font-headline-lg text-on-surface">최신 소식</h2>
+<p class="text-body-md font-body-md text-muted">G7부동산이 전하는 최신 게시판 정보</p>
+</div>
+<a href="news.html" class="text-[#3182f6] font-bold text-body-sm flex items-center gap-1 hover:opacity-80">
+<span>전체 게시글 보기</span>
+<span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+</a>
+</div>
+<div id="board-preview" class="grid grid-cols-1 md:grid-cols-3 gap-md"></div>
+</section>
+
+<section class="w-full max-w-7xl mx-auto px-edge-margin py-2xl flex flex-col gap-lg">
+<div class="flex flex-col gap-xs">
+<h2 class="text-headline-lg font-headline-lg text-on-surface">왜 북항 랜드마크인가?</h2>
+<p class="text-body-md font-body-md text-muted">협성마리나G7과 롯데캐슬 드메르의 독보적인 가치</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="bg-surface rounded-2xl p-sm flex flex-col gap-sm hover:shadow-sm transition-shadow">
+<div class="w-12 h-12 bg-primary-container/20 rounded-xl flex items-center justify-center text-[#3182f6]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">directions_boat</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface">글로벌 해양도시 도약</h3>
+<p class="text-body-sm font-body-sm text-secondary">
+                        항만과 철도, 원도심을 연계한 초대형 프로젝트로 부산을 넘어선 동북아 해양 물류 및 비즈니스의 중심지로 거듭납니다.
+                    </p>
+</div>
+<div class="bg-surface rounded-2xl p-sm flex flex-col gap-sm hover:shadow-sm transition-shadow">
+<div class="w-12 h-12 bg-tertiary-container/20 rounded-xl flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">park</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface">친환경 수변공간</h3>
+<p class="text-body-sm font-body-sm text-secondary">
+                        시민을 위한 대규모 친수공원과 오페라하우스 등 문화 인프라가 확충되어 쾌적하고 수준 높은 주거 및 업무 환경을 제공합니다.
+                    </p>
+</div>
+<div class="bg-surface rounded-2xl p-sm flex flex-col gap-sm hover:shadow-sm transition-shadow">
+<div class="w-12 h-12 bg-tertiary-container/20 rounded-xl flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">apartment</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface">하이엔드 커뮤니티</h3>
+<p class="text-body-sm font-body-sm text-secondary">
+                        최고급 마감재와 인피니티 풀, 피트니스, 조식 서비스 등 5성급 호텔 수준의 부대시설과 서비스를 제공합니다.
+                    </p>
+</div>
+<div class="bg-surface rounded-2xl p-sm flex flex-col gap-sm hover:shadow-sm transition-shadow">
+<div class="w-12 h-12 bg-secondary-container/50 rounded-xl flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface">압도적 미래가치</h3>
+<p class="text-body-sm font-body-sm text-secondary">
+                        EXPO 유치 추진 및 교통 인프라(트램 등) 개선과 맞물려 지속적인 지가 상승과 인구 유입이 기대되는 확실한 투자처입니다.
+                    </p>
+</div>
+</div>
+</section>
+
+<section class="w-full max-w-7xl mx-auto px-edge-margin py-2xl flex flex-col gap-lg bg-surface-container-lowest">
+<div class="flex justify-between items-end">
+<div class="flex flex-col gap-xs">
+<h2 class="text-headline-lg font-headline-lg text-on-surface">주목받는 랜드마크 매물</h2>
+<p class="text-body-md font-body-md text-muted">G7 &amp; 드메르 전문 중개사만의 특별한 리스트</p>
+</div>
+<a class="text-[#3182f6] font-bold text-body-sm flex items-center gap-1 hover:opacity-80" href="news.html">
+<span>전체보기</span>
+<span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward_ios</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="bg-surface border-2 border-[#3182f6]/20 rounded-2xl overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(49,130,246,0.08)] hover:shadow-[0_12px_40px_rgba(49,130,246,0.12)] transition-all transform hover:-translate-y-1 relative">
+<div class="absolute top-4 left-4 z-10 bg-[#3182f6] text-white px-3 py-1.5 rounded-full text-label-sm font-label-sm font-bold flex items-center gap-1 shadow-md">
+<span class="material-symbols-outlined" style="font-size: 14px;">recommend</span>
+<span>강력 추천</span>
+</div>
+<div class="w-full h-[250px]"><img class="w-full h-full object-cover" alt="Luxury apartment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVbIY9sQLTmg41-u1j1v6YD_84DAXQUnkznvMH6ZYgdemeHS22qt2bJpWcBzRV8hGdiqUbZs6fLl2x4XoKYAfyxFBY0owuO8hDk08MreWr2jdNms368VYHQBBz7LHEgOWOrHy7fAaobycJXgVbuj8wNoHuzZyDWHecSQeJqt8H24zeGlVEwYq-HW1pPGYjD6TC8Cu4jDLb3TPAua_JYLm2PAftZnztXyC91IYtEXoKWS8nQpNx_-52f3AQzs0JAX7N1W4YOsw2ZI7VMQ"/></div>
+<div class="p-lg flex flex-col flex-grow justify-between gap-4">
+<div class="flex flex-col gap-2">
+<div class="flex gap-2">
+<span class="bg-weak-background text-[#3182f6] px-2 py-1 rounded text-label-sm font-label-sm font-bold">급매</span>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-1 rounded text-label-sm font-label-sm">하이엔드 레지던스</span>
+</div>
+<h3 class="text-headline-lg font-headline-lg text-on-surface font-bold">협성마리나G7 (B동 로열층)</h3>
+<p class="text-body-md font-body-md text-secondary">북항 영구 조망권 완벽 확보. 풀옵션 하이엔드 인테리어 및 최상의 커뮤니티 접근성을 자랑하는 귀한 매물입니다.</p>
+</div>
+<div class="flex justify-between items-end mt-2 pt-4 border-t border-outline-variant/30">
+<div class="flex flex-col">
+<span class="text-label-sm text-muted mb-1">매매가</span>
+<span class="text-headline-xl font-headline-xl font-bold text-[#3182f6]">11.5억</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface border-2 border-[#3182f6]/20 rounded-2xl overflow-hidden flex flex-col shadow-[0_8px_30px_rgba(49,130,246,0.08)] hover:shadow-[0_12px_40px_rgba(49,130,246,0.12)] transition-all transform hover:-translate-y-1 relative">
+<div class="absolute top-4 left-4 z-10 bg-tertiary-container text-white px-3 py-1.5 rounded-full text-label-sm font-label-sm font-bold flex items-center gap-1 shadow-md">
+<span class="material-symbols-outlined" style="font-size: 14px;">star</span>
+<span>인기 매물</span>
+</div>
+<div class="w-full h-[250px]"><img class="w-full h-full object-cover" alt="Residence" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc_FxoJG4SNXmhFlVQWEjIT70KnjuCyRKaJ_pg-SzaciNzoV6zMvjbTiPuJmHvmC2Oz_bGioH9EmrZOMG8q1KcatrnaozPqE3uKF_LBFlQtmgXjvoDuuN_VUCLhWzypgouNzgWAUCenj7bL1tQ4qKQJ30iHLiIkTccHT0PjOefe5E33uQBdeDScWLp6m0ERDJx8ucvcz_I0ljo3rDOpGPi1kzkckfy5uwV7UwX4e6MZhSRjjGRDA8MT_wsHt5pic8PtSiXsbavZFO4dA"/></div>
+<div class="p-lg flex flex-col flex-grow justify-between gap-4">
+<div class="flex flex-col gap-2">
+<div class="flex gap-2">
+<span class="bg-weak-background text-[#3182f6] px-2 py-1 rounded text-label-sm font-label-sm font-bold">전세</span>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-1 rounded text-label-sm font-label-sm">프리미엄 레지던스</span>
+</div>
+<h3 class="text-headline-lg font-headline-lg text-on-surface font-bold">롯데캐슬 드메르 (고층)</h3>
+<p class="text-body-md font-body-md text-secondary">부산항 대교 파노라마 뷰. 신축의 쾌적함과 단지 내 최고급 커뮤니티 시설을 모두 누릴 수 있는 특별한 기회.</p>
+</div>
+<div class="flex justify-between items-end mt-2 pt-4 border-t border-outline-variant/30">
+<div class="flex flex-col">
+<span class="text-label-sm text-muted mb-1">임대가 (보증금 / 월세)</span>
+<span class="text-headline-xl font-headline-xl font-bold text-[#3182f6]">3천만원/180(부가세별도)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="w-full max-w-7xl mx-auto px-edge-margin py-2xl flex flex-col gap-lg">
+<div class="flex flex-col gap-xs">
+<h2 class="text-headline-lg font-headline-lg text-on-surface">북항 랜드마크 전문가</h2>
+<p class="text-body-md font-body-md text-muted">협성마리나G7과 롯데캐슬 드메르의 분양부터 현재까지 모든 흐름을 파악하고 있는 현장 전문가입니다.</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-[16px] p-lg flex flex-col md:flex-row items-center gap-xl shadow-sm">
+<div class="w-48 h-48 rounded-full overflow-hidden shrink-0 border-4 border-surface-container">
+<img alt="Agent Profile" class="w-full h-full object-cover" src="realtor_usc" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuAX1trlIoUsGO9UyfbevNcXQZqSCX__ouv0TMVonY00j7Ry01OlGJRA6t9wE70UdrqS_BxEsy5em76oSMxabtJaNVWe3s1aMOvK2Axubqiat5nV6yc7aetvyekSdNG3DqUmlX7KbvJTG6RDDT6H2pkj7V9PYyzq2-6LZRLdEom0CeiHKE8rHCws2JeKAp5vbIjVP6Eg_Ed4RWc_4b-wPVhhjLs7tv6nReKCtxCGVc995meX0HKUkUaJrZyCWB16g6KhAxzQmu8o0sA9OA'"/>
+</div>
+<div class="flex flex-col gap-sm">
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface">대표 공인중개사 유승찬</h3>
+</div>
+<ul class="flex flex-col gap-2 mt-2">
+<li class="flex items-center gap-2 text-body-md text-secondary">
+<span class="material-symbols-outlined text-[#3182f6]" style="font-size: 20px;">check_circle</span>
+<span>협성마리나G7 / 롯데캐슬 드메르 / 북항재개발 전문</span>
+</li>
+<li class="flex items-center gap-2 text-body-md text-secondary">
+<span class="material-symbols-outlined text-[#3182f6]" style="font-size: 20px;">check_circle</span>
+<span>북항 랜드마크 누적 거래액 1,000억 돌파</span>
+</li>
+<li class="flex items-center gap-2 text-body-md text-secondary">
+<span class="material-symbols-outlined text-[#3182f6]" style="font-size: 20px;">check_circle</span>
+<span>하이엔드 주거, 오피스 맞춤 컨설팅</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section id="consultation" class="w-full max-w-4xl mx-auto px-edge-margin py-2xl mb-xl">
+<div class="bg-[#3182f6]/10 text-on-surface rounded-2xl p-lg flex flex-col md:flex-row items-center justify-between gap-lg relative overflow-hidden border border-[#3182f6]/20">
+<div class="flex flex-col gap-xs z-10 text-center md:text-left">
+<h2 class="text-headline-lg font-headline-lg font-bold text-[#3182f6]">북항 랜드마크 입성의 첫 걸음</h2>
+<p class="text-body-md font-body-md opacity-90">G7 &amp; 드메르 전문 중개사와 지금 바로 상담해보세요.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 z-10 w-full md:w-auto">
+<a href="tel:051-462-1999" class="bg-[#3182f6] text-white h-[56px] px-8 rounded-[16px] font-bold text-body-md flex items-center justify-center gap-2 hover:opacity-90 transition-colors shadow-sm">
+<span class="material-symbols-outlined">call</span>
+<span>051-462-1999</span>
+</a>
+</div>
+</div>
+</section>
+</main>
+
+<footer class="w-full px-edge-margin py-xl flex flex-col gap-sm bg-surface-container-low dark:bg-on-background border-t border-outline-variant/30">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<span class="font-bold text-on-surface">북항재개발 랜드마크 전문 G7부동산</span>
+<div class="flex gap-4 items-center">
+<a class="text-label-sm font-label-sm text-muted hover:text-[#3182f6]" href="#">이용약관</a>
+<a class="text-label-sm font-label-sm text-muted hover:text-[#3182f6]" href="#">개인정보처리방침</a>
+<a id="agent-login-btn" class="text-label-sm font-label-sm text-[#3182f6] font-bold hover:underline" href="admin.html">Agent Login</a>
+</div>
+</div>
+<div class="text-body-sm font-body-sm text-muted mt-4">
+    © 2026 G7부동산공인중개사사무소. All rights reserved.
+</div>
+</footer>
+
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 pb-safe bg-surface-container-lowest dark:bg-inverse-surface shadow-[0_-8px_24px_rgba(0,0,0,0.04)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-[#3182f6] dark:text-primary-fixed-dim font-bold bg-[#3182f6]/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 min-h-[44px] min-w-[44px]" href="index.html">
+<span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1;'>home</span>
+<span class="text-label-sm font-label-sm">홈</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:bg-surface rounded-xl px-3 py-1 transition-all duration-150 min-h-[44px] min-w-[44px]" href="news.html">
+<span class="material-symbols-outlined">domain</span>
+<span class="text-label-sm font-label-sm">매물소식</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:bg-surface rounded-xl px-3 py-1 transition-all duration-150 min-h-[44px] min-w-[44px]" href="news.html">
+<span class="material-symbols-outlined">newspaper</span>
+<span class="text-label-sm font-label-sm">재개발뉴스</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:bg-surface rounded-xl px-3 py-1 transition-all duration-150 min-h-[44px] min-w-[44px]" href="admin.html">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="text-label-sm font-label-sm">관리자</span>
+</a>
+</nav>
+
+<script src="db.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const container = document.getElementById('board-preview');
+  const section = document.getElementById('board-preview-section');
+  if (!container || !section) return;
+  
+  const posts = await getPosts();
+  if (!posts || posts.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+  
+  const latestPosts = posts.slice(0, 3);
+  container.innerHTML = latestPosts.map(p => {
+    const summary = markdownToText(p.content || '').slice(0, 60);
+    return `
+      <div onclick="location.href='news-detail.html?id=${p.id}'" class="bg-surface rounded-2xl p-lg border border-outline-variant/30 flex flex-col justify-between cursor-pointer hover:shadow-md transition-shadow">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="bg-weak-background text-[#3182f6] px-2.5 py-1 rounded text-label-sm font-bold">${escapeHtml(p.category || '소식')}</span>
+            <span class="text-label-sm text-muted">${escapeHtml(p.date || '')}</span>
+          </div>
+          <h3 class="text-headline-md font-bold text-on-surface mb-2 line-clamp-1">${escapeHtml(p.title || '')}</h3>
+          <p class="text-body-sm text-secondary line-clamp-2">${escapeHtml(summary)}...</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-outline-variant/20 flex items-center text-[#3182f6] text-body-sm font-bold">
+          <span>자세히 보기</span>
+          <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+});
+</script>
+</body>
+</html>

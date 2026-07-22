@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>관리자 대시보드 - 북항재개발 전문 G7부동산</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-md bg-background text-on-surface">
+
+<div id="login-section" class="flex-grow flex items-center justify-center px-4 py-12">
+<div class="bg-surface rounded-2xl p-8 border border-outline-variant/30 w-full max-w-md shadow-lg">
+<div class="flex items-center justify-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary text-3xl">admin_panel_settings</span>
+<h1 class="text-headline-md font-bold text-on-surface">관리자 로그인</h1>
+</div>
+<form id="login-form" class="flex flex-col gap-4">
+<div>
+<label class="block text-body-sm font-bold text-on-surface mb-2" for="password-input">비밀번호</label>
+<input type="password" id="password-input" required placeholder="관리자 비밀번호 입력" class="w-full p-3 bg-surface-container-lowest border border-outline-variant/50 rounded-xl text-body-md text-on-surface focus:outline-none focus:border-primary"/>
+</div>
+<div id="login-error" class="hidden text-error text-body-sm font-bold bg-error-container/40 p-3 rounded-lg text-center"></div>
+<button type="submit" class="w-full py-3 bg-primary text-white font-bold rounded-xl hover:opacity-90 transition-opacity">로그인</button>
+<div class="text-center mt-2">
+<a href="index.html" class="text-body-sm text-muted hover:underline">← 메인 페이지로 돌아가기</a>
+</div>
+</form>
+</div>
+</div>
+
+<div id="dashboard-section" class="hidden flex-grow flex flex-col">
+<header class="bg-surface border-b border-outline-variant/30 px-edge-margin h-16 flex justify-between items-center sticky top-0 z-50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">dashboard</span>
+<h1 class="text-headline-md font-bold text-on-surface">게시글 관리 대시보드</h1>
+</div>
+<div class="flex items-center gap-3">
+<a href="index.html" class="text-body-sm text-secondary hover:text-primary font-bold px-3 py-2">사이트 바로가기</a>
+<a href="news-write.html" class="bg-primary text-white px-4 py-2 rounded-xl text-body-sm font-bold hover:opacity-90 transition-opacity flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+<span>새 글 작성</span>
+</a>
+<button id="logout-btn" class="bg-surface-variant text-on-surface-variant px-4 py-2 rounded-xl text-body-sm font-bold hover:opacity-80 transition-opacity">로그아웃</button>
+</div>
+</header>
+
+<main class="flex-grow w-full max-w-7xl mx-auto px-edge-margin py-xl">
+<div class="bg-surface rounded-2xl border border-outline-variant/30 overflow-hidden shadow-sm">
+<div class="p-4 bg-surface-container-low border-b border-outline-variant/30 flex justify-between items-center">
+<h2 class="text-headline-md font-bold text-on-surface">전체 게시글 목록</h2>
+<span id="post-count" class="text-label-sm text-muted bg-surface px-3 py-1 rounded-full font-bold">총 0개</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high/50 text-secondary text-label-sm uppercase border-b border-outline-variant/30">
+<th class="p-4 w-16 text-center">번호</th>
+<th class="p-4 w-28">카테고리</th>
+<th class="p-4">제목</th>
+<th class="p-4 w-32">작성일</th>
+<th class="p-4 w-36 text-center">관리</th>
+</tr>
+</thead>
+<tbody id="admin-table-body" class="divide-y divide-outline-variant/20 text-body-md text-on-surface">
+<tr>
+<td colspan="5" class="p-12 text-center text-muted">게시글을 불러오는 중입니다...</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+</div>
+
+<script src="db.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const loginSec = document.getElementById('login-section');
+  const dashSec = document.getElementById('dashboard-section');
+
+  if (isAdmin()) {
+    loginSec.classList.add('hidden');
+    dashSec.classList.remove('hidden');
+    loadAdminTable();
+  } else {
+    loginSec.classList.remove('hidden');
+    dashSec.classList.add('hidden');
+  }
+
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const errorEl = document.getElementById('login-error');
+    errorEl.classList.add('hidden');
+
+    const config = await loadConfig();
+    const inputPass = document.getElementById('password-input').value.trim();
+
+    if (inputPass === config.admin_password) {
+      sessionStorage.setItem('isAdmin', 'true');
+      window.location.reload();
+    } else {
+      errorEl.textContent = '비밀번호가 올바르지 않습니다.';
+      errorEl.classList.remove('hidden');
+    }
+  });
+
+  document.getElementById('logout-btn')?.addEventListener('click', () => {
+    sessionStorage.removeItem('isAdmin');
+    window.location.reload();
+  });
+});
+
+async function loadAdminTable() {
+  const tbody = document.getElementById('admin-table-body');
+  const countEl = document.getElementById('post-count');
+  if (!tbody) return;
+
+  const posts = await getPosts();
+  countEl.textContent = `총 ${posts.length}개`;
+
+  if (posts.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" class="p-12 text-center text-muted font-bold">작성된 게시글이 없습니다.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = posts.map((p, idx) => `
+    <tr class="hover:bg-surface-container-low/50 transition-colors">
+      <td class="p-4 text-center text-muted text-body-sm">${posts.length - idx}</td>
+      <td class="p-4">
+        <span class="bg-weak-background text-primary font-bold px-2.5 py-1 rounded text-label-sm">${escapeHtml(p.category || '일반')}</span>
+      </td>
+      <td class="p-4 font-bold text-on-surface">
+        <a href="news-detail.html?id=${p.id}" target="_blank" class="hover:text-primary hover:underline">${escapeHtml(p.title || '')}</a>
+      </td>
+      <td class="p-4 text-secondary text-body-sm">${escapeHtml(p.date || '')}</td>
+      <td class="p-4 text-center">
+        <div class="flex items-center justify-center gap-2">
+          <a href="news-write.html?id=${p.id}" class="p-1.5 bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-colors text-body-sm font-bold flex items-center" title="수정">
+            <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
+          </a>
+          <button onclick="handleDelete('${p.id}')" class="p-1.5 bg-error/10 text-error rounded-lg hover:bg-error/20 transition-colors text-body-sm font-bold flex items-center" title="삭제">
+            <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
+          </button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+async function handleDelete(id) {
+  if (confirm('이 게시글을 삭제하시겠습니까?')) {
+    const { syncResult } = await deletePost(id);
+    if (syncResult && !syncResult.success) {
+      alert('로컬 삭제 완료 (GitHub API 경고: ' + syncResult.error + ')');
+    }
+    loadAdminTable();
+  }
+}
+</script>
+</body>
+</html>

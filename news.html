@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>재개발 뉴스 - 북항재개발 전문 G7부동산</title>
+<title>북항재개발 소식 - G7부동산</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -102,128 +102,107 @@ try{
 </script>
 </head>
 <body class="antialiased min-h-screen flex flex-col font-body-md bg-background text-on-surface">
-<header class="bg-background dark:bg-on-background flex justify-between items-center h-16 px-edge-margin w-full sticky top-0 z-50">
+
+<header class="bg-background dark:bg-on-background flex justify-between items-center h-16 px-edge-margin w-full sticky top-0 z-50 shadow-sm border-b border-outline-variant/20">
 <div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">location_on</span>
-<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim tracking-tight">북항재개발 전문 G7부동산</h1>
+<span class="material-symbols-outlined text-primary" data-icon="location_on">location_on</span>
+<a href="index.html" class="text-headline-md font-headline-md font-bold text-primary tracking-tight">북항재개발 전문 G7부동산</a>
 </div>
 <nav class="hidden md:flex items-center gap-lg">
-<a href="index.html" class="flex items-center gap-2 text-on-surface-variant dark:text-muted hover:opacity-80 transition-opacity min-h-[44px] min-w-[44px] justify-center">
-<span class="material-symbols-outlined">home</span>
+<a href="index.html" class="flex items-center gap-2 text-on-surface-variant hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="home">home</span>
 <span class="text-body-md font-body-md">홈</span>
 </a>
-<a href="news.html" class="flex items-center gap-2 text-on-surface-variant dark:text-muted hover:opacity-80 transition-opacity min-h-[44px] min-w-[44px] justify-center">
-<span class="material-symbols-outlined">domain</span>
-<span class="text-body-md font-body-md">매물소식</span>
-</a>
-<a href="news.html" class="flex items-center gap-2 text-primary dark:text-primary-fixed-dim font-bold hover:opacity-80 transition-opacity min-h-[44px] min-w-[44px] justify-center">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">newspaper</span>
+<a href="news.html" class="flex items-center gap-2 text-primary font-bold hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="newspaper" style="font-variation-settings: 'FILL' 1;">newspaper</span>
 <span class="text-body-md font-body-md">재개발뉴스</span>
 </a>
-<a href="index.html#consultation" class="flex items-center gap-2 text-on-surface-variant dark:text-muted hover:opacity-80 transition-opacity min-h-[44px] min-w-[44px] justify-center">
-<span class="material-symbols-outlined">event_available</span>
-<span class="text-body-md font-body-md">상담예약</span>
+<a href="admin.html" class="flex items-center gap-2 text-on-surface-variant hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="text-body-md font-body-md">관리자</span>
 </a>
 </nav>
-<button class="md:hidden p-2 rounded-full hover:bg-surface transition-colors min-h-[44px] min-w-[44px]">
-<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">menu</span>
+<button class="md:hidden p-2 rounded-full hover:bg-surface transition-colors" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
 </button>
 </header>
 
-<main class="flex-grow w-full max-w-[1440px] mx-auto px-edge-margin py-xl flex flex-col lg:flex-row gap-lg pb-24 md:pb-12">
+<div id="mobile-menu" class="hidden md:hidden bg-surface px-edge-margin py-4 border-b border-outline-variant/30 flex flex-col gap-3">
+<a class="text-on-surface-variant" href="index.html">홈</a>
+<a class="text-primary font-bold" href="news.html">재개발뉴스</a>
+<a class="text-on-surface-variant" href="admin.html">관리자</a>
+</div>
+
+<main class="flex-grow w-full max-w-[1440px] mx-auto px-edge-margin py-xl flex flex-col lg:flex-row gap-lg">
+
 <aside class="w-full lg:w-64 shrink-0 flex flex-col gap-sm">
 <div class="bg-surface rounded-xl p-md">
 <h2 class="text-headline-md font-headline-md mb-sm text-on-surface">뉴스 카테고리</h2>
-<ul class="flex flex-row lg:flex-col gap-xs overflow-x-auto lg:overflow-visible pb-2 lg:pb-0" id="category-list">
-<li>
-<button data-cat="전체" class="cat-btn w-full text-left px-sm py-xs rounded-lg bg-primary text-on-primary font-bold text-body-md whitespace-nowrap">전체</button>
-</li>
-<li>
-<button data-cat="보도자료" class="cat-btn w-full text-left px-sm py-xs rounded-lg text-secondary hover:bg-surface-variant transition-colors text-body-md whitespace-nowrap">보도자료</button>
-</li>
-<li>
-<button data-cat="매물소식" class="cat-btn w-full text-left px-sm py-xs rounded-lg text-secondary hover:bg-surface-variant transition-colors text-body-md whitespace-nowrap">매물소식</button>
-</li>
-<li>
-<button data-cat="현장스케치" class="cat-btn w-full text-left px-sm py-xs rounded-lg text-secondary hover:bg-surface-variant transition-colors text-body-md whitespace-nowrap">현장스케치</button>
-</li>
+<ul id="category-filter" class="flex flex-row lg:flex-col gap-xs overflow-x-auto lg:overflow-visible pb-2 lg:pb-0">
+<li><button data-cat="all" class="cat-btn w-full text-left px-sm py-xs rounded-lg bg-primary text-on-primary font-bold text-body-md whitespace-nowrap">전체</button></li>
+<li><button data-cat="보도자료" class="cat-btn w-full text-left px-sm py-xs rounded-lg text-secondary hover:bg-surface-variant transition-colors text-body-md whitespace-nowrap">보도자료</button></li>
+<li><button data-cat="매물소식" class="cat-btn w-full text-left px-sm py-xs rounded-lg text-secondary hover:bg-surface-variant transition-colors text-body-md whitespace-nowrap">매물소식</button></li>
+<li><button data-cat="현장스케치" class="cat-btn w-full text-left px-sm py-xs rounded-lg text-secondary hover:bg-surface-variant transition-colors text-body-md whitespace-nowrap">현장스케치</button></li>
 </ul>
 </div>
 
-<div class="bg-surface rounded-xl p-md hidden lg:block">
-<h3 class="text-body-md font-semibold mb-sm text-on-surface">대표 중개사</h3>
+<div class="bg-surface rounded-xl p-md hidden lg:flex flex-col gap-3">
 <div class="flex items-center gap-3">
-<div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-outline-variant">
-<img src="realtor_usc" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuAX1trlIoUsGO9UyfbevNcXQZqSCX__ouv0TMVonY00j7Ry01OlGJRA6t9wE70UdrqS_BxEsy5em76oSMxabtJaNVWe3s1aMOvK2Axubqiat5nV6yc7aetvyekSdNG3DqUmlX7KbvJTG6RDDT6H2pkj7V9PYyzq2-6LZRLdEom0CeiHKE8rHCws2JeKAp5vbIjVP6Eg_Ed4RWc_4b-wPVhhjLs7tv6nReKCtxCGVc995meX0HKUkUaJrZyCWB16g6KhAxzQmu8o0sA9OA'" alt="Profile" class="w-full h-full object-cover"/>
-</div>
+<img src="realtor.jpg" alt="대표 공인중개사" class="w-12 h-12 rounded-full object-cover border border-primary/30" />
 <div>
-<p class="text-body-sm font-bold text-on-surface">유승찬 대표</p>
+<h4 class="font-bold text-on-surface text-body-sm">대표 유승찬</h4>
 <p class="text-label-sm text-muted">051-462-1999</p>
 </div>
 </div>
+<p class="text-body-sm text-secondary">북항재개발 전담 공인중개사사무소입니다.</p>
 </div>
 </aside>
 
-<div class="flex-grow w-full">
+<div class="flex-grow">
 <div class="mb-lg flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
 <div>
 <h2 class="text-headline-xl font-headline-xl text-on-surface">최신 부동산 동향</h2>
-<p class="text-body-md font-body-md text-secondary mt-2">북항재개발의 가장 빠르고 정확한 소식을 전해드립니다.</p>
+<p class="text-body-md font-body-md text-secondary mt-1">북항재개발의 가장 빠르고 정확한 소식을 전해드립니다.</p>
 </div>
-<div class="flex w-full md:w-auto gap-2">
-<div class="relative w-full md:w-64">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted">search</span>
-<input type="text" id="search-input" placeholder="뉴스 검색..." class="w-full pl-10 pr-4 py-2 bg-surface border border-outline-variant/50 rounded-lg text-body-sm font-body-sm focus:outline-none focus:border-primary text-on-surface placeholder:text-muted"/>
-</div>
+<div class="w-full md:w-auto relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted" data-icon="search">search</span>
+<input id="search-input" type="text" placeholder="뉴스 검색..." class="w-full md:w-64 pl-10 pr-4 py-2 bg-surface border border-outline-variant/50 rounded-lg text-body-sm focus:outline-none focus:border-primary text-on-surface placeholder:text-muted"/>
 </div>
 </div>
 
 <div id="news-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md"></div>
+
+<div id="empty-msg" class="hidden text-center py-16 bg-surface rounded-xl my-4">
+<span class="material-symbols-outlined text-4xl text-muted">newspaper</span>
+<p class="text-body-md text-muted mt-2">등록된 게시글이 없습니다.</p>
+</div>
 </div>
 </main>
 
 <footer class="w-full px-edge-margin py-xl flex flex-col gap-sm bg-surface-container-low dark:bg-on-background border-t border-outline-variant/30 mt-auto">
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
-<div class="font-bold text-on-surface text-body-md mb-2">북항재개발 프로 G7부동산</div>
-<div class="flex gap-md items-center">
-<a class="text-label-sm font-label-sm text-muted hover:text-primary" href="#">이용약관</a>
-<a class="text-label-sm font-label-sm text-muted hover:text-primary" href="#">개인정보처리방침</a>
-<a class="text-label-sm font-label-sm text-primary font-bold hover:underline" href="admin.html">Agent Login</a>
+<div class="font-bold text-on-surface text-body-md">북항재개발 전문 G7부동산</div>
+<div class="flex gap-md">
+<a class="text-label-sm text-muted hover:text-primary transition-colors" href="index.html">홈</a>
+<a class="text-label-sm text-muted hover:text-primary transition-colors" href="news.html">재개발뉴스</a>
+<a id="agent-login-btn" class="text-label-sm text-muted hover:text-primary transition-colors" href="admin.html">Agent Login</a>
 </div>
 </div>
-<p class="text-body-sm font-body-sm text-muted">© 2026 북항재개발 전문 부동산. All rights reserved.</p>
+<p class="text-body-sm text-muted mt-2">© 2026 G7부동산공인중개사사무소. All rights reserved.</p>
 </footer>
-
-<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 pb-safe bg-surface-container-lowest dark:bg-inverse-surface shadow-[0_-8px_24px_rgba(0,0,0,0.04)] rounded-t-xl">
-<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:bg-surface rounded-xl px-3 py-1 transition-all duration-150 min-h-[44px] min-w-[44px]" href="index.html">
-<span class="material-symbols-outlined">home</span>
-<span class="text-label-sm font-label-sm">홈</span>
-</a>
-<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold bg-primary/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 min-h-[44px] min-w-[44px]" href="news.html">
-<span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1;'>newspaper</span>
-<span class="text-label-sm font-label-sm">재개발뉴스</span>
-</a>
-<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:bg-surface rounded-xl px-3 py-1 transition-all duration-150 min-h-[44px] min-w-[44px]" href="admin.html">
-<span class="material-symbols-outlined">admin_panel_settings</span>
-<span class="text-label-sm font-label-sm">관리자</span>
-</a>
-</nav>
 
 <script src="db.js"></script>
 <script>
 let allPosts = [];
-let selectedCategory = '전체';
+let currentCategory = 'all';
 
 document.addEventListener('DOMContentLoaded', async () => {
   allPosts = await getPosts();
-  renderNewsList();
+  renderPosts();
 
-  const searchInput = document.getElementById('search-input');
-  if (searchInput) {
-    searchInput.addEventListener('input', () => {
-      renderNewsList();
-    });
-  }
+  document.getElementById('search-input').addEventListener('input', () => {
+    renderPosts();
+  });
 
   const catBtns = document.querySelectorAll('.cat-btn');
   catBtns.forEach(btn => {
@@ -231,51 +210,58 @@ document.addEventListener('DOMContentLoaded', async () => {
       catBtns.forEach(b => {
         b.className = 'cat-btn w-full text-left px-sm py-xs rounded-lg text-secondary hover:bg-surface-variant transition-colors text-body-md whitespace-nowrap';
       });
-      e.currentTarget.className = 'cat-btn w-full text-left px-sm py-xs rounded-lg bg-primary text-on-primary font-bold text-body-md whitespace-nowrap';
-      selectedCategory = e.currentTarget.getAttribute('data-cat');
-      renderNewsList();
+      btn.className = 'cat-btn w-full text-left px-sm py-xs rounded-lg bg-primary text-on-primary font-bold text-body-md whitespace-nowrap';
+      currentCategory = btn.getAttribute('data-cat');
+      renderPosts();
     });
   });
 });
 
-function renderNewsList() {
+function renderPosts() {
   const container = document.getElementById('news-list');
-  if (!container) return;
+  const emptyMsg = document.getElementById('empty-msg');
+  const query = document.getElementById('search-input').value.trim().toLowerCase();
 
-  const searchQuery = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
-
-  let filtered = allPosts.filter(p => {
-    const matchCat = selectedCategory === '전체' || p.category === selectedCategory;
-    const titleMatch = (p.title || '').toLowerCase().includes(searchQuery);
-    const contentMatch = (p.content || '').toLowerCase().includes(searchQuery);
-    return matchCat && (titleMatch || contentMatch);
-  });
-
-  if (filtered.length === 0) {
-    container.innerHTML = `
-      <div class="col-span-full py-12 text-center text-muted">
-        <span class="material-symbols-outlined text-4xl mb-2">find_in_page</span>
-        <p class="text-body-md font-bold">등록되었거나 검색 조건에 맞는 게시글이 없습니다.</p>
-      </div>
-    `;
-    return;
+  let filtered = allPosts;
+  if (currentCategory !== 'all') {
+    filtered = filtered.filter(p => p.category === currentCategory);
+  }
+  if (query) {
+    filtered = filtered.filter(p => 
+      (p.title && p.title.toLowerCase().includes(query)) ||
+      (p.content && p.content.toLowerCase().includes(query))
+    );
   }
 
-  container.innerHTML = filtered.map((p, idx) => {
-    const summary = markdownToText(p.content || '').slice(0, 100);
+  if (filtered.length === 0) {
+    container.innerHTML = '';
+    emptyMsg.classList.remove('hidden');
+    return;
+  }
+  emptyMsg.classList.add('hidden');
+
+  container.innerHTML = filtered.map((post, idx) => {
+    const summary = markdownToText(post.content).slice(0, 70) + '...';
+    const isFeatured = (idx === 0 && currentCategory === 'all' && !query);
+    const colSpan = isFeatured ? 'col-span-1 md:col-span-2 lg:col-span-2' : '';
+    const imgHeight = isFeatured ? 'h-64' : 'h-40';
+
+    const thumbHtml = post.thumbnail 
+      ? `<img src="${escapeHtml(post.thumbnail)}" alt="${escapeHtml(post.title)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>`
+      : `<div class="w-full h-full bg-surface-dim flex items-center justify-center"><span class="material-symbols-outlined text-4xl text-muted">apartment</span></div>`;
+
     return `
-      <article onclick="location.href='news-detail.html?id=${p.id}'" class="bg-surface rounded-xl p-sm flex flex-col gap-sm hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)] transition-shadow cursor-pointer group border border-outline-variant/30">
-        <div class="flex flex-col gap-1 flex-grow">
-          <div class="flex justify-between items-center mb-1">
-            <span class="text-primary text-label-sm font-bold bg-weak-background px-2 py-0.5 rounded">${escapeHtml(p.category || '뉴스')}</span>
-            <span class="text-label-sm text-muted">${escapeHtml(p.date || '')}</span>
+      <article onclick="location.href='news-detail.html?id=${post.id}'" class="${colSpan} bg-surface rounded-xl overflow-hidden group cursor-pointer border border-outline-variant/30 flex flex-col hover:shadow-md transition-all">
+        <div class="${imgHeight} w-full relative">
+          ${thumbHtml}
+          <div class="absolute top-3 left-3">
+            <span class="px-3 py-1 bg-primary text-on-primary rounded-full text-label-sm font-bold">${escapeHtml(post.category || '보도자료')}</span>
           </div>
-          <h3 class="text-headline-md font-bold text-on-surface line-clamp-2 mt-1 group-hover:text-primary transition-colors">${escapeHtml(p.title || '')}</h3>
-          <p class="text-body-sm text-secondary line-clamp-3 mt-2">${escapeHtml(summary)}...</p>
         </div>
-        <div class="mt-4 pt-2 border-t border-outline-variant/20 flex justify-between items-center text-label-sm text-primary font-bold">
-          <span>자세히 보기</span>
-          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        <div class="p-md flex flex-col gap-2 flex-grow">
+          <h3 class="text-headline-md font-bold text-on-surface line-clamp-2">${escapeHtml(post.title || '')}</h3>
+          <p class="text-body-sm text-secondary line-clamp-2">${escapeHtml(summary)}</p>
+          <span class="text-label-sm text-muted mt-auto pt-2">${escapeHtml(post.date || '')}</span>
         </div>
       </article>
     `;

@@ -1,6 +1,6 @@
 {
   "github_token": "YOUR_GITHUB_TOKEN",
   "github_owner": "mnmugic-gif",
-  "github_repo": "g7realtor",
+  "github_repo": "landing",
   "data_file_path": "data/posts.json"
 }

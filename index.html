@@ -105,22 +105,32 @@ try{
 </script>
 </head>
 <body class="bg-background text-on-surface antialiased overflow-x-hidden min-h-screen flex flex-col">
-<header class="bg-background dark:bg-on-background flex justify-between items-center h-16 px-edge-margin w-full sticky top-0 z-50">
+
+<header class="bg-background dark:bg-on-background flex justify-between items-center h-16 px-edge-margin w-full sticky top-0 z-50 shadow-sm border-b border-outline-variant/20">
 <div class="flex items-center gap-sm">
 <span class="material-symbols-outlined text-[#3182f6] dark:text-primary-fixed-dim" style='font-variation-settings: "FILL" 1;'>location_on</span>
-<span class="text-headline-md font-headline-md font-bold text-[#3182f6] dark:text-primary-fixed-dim">북항재개발 전문 G7부동산</span>
+<a href="index.html" class="text-headline-md font-headline-md font-bold text-[#3182f6] dark:text-primary-fixed-dim">북항재개발 전문 G7부동산</a>
 </div>
 <nav class="hidden md:flex items-center gap-lg">
-<a class="text-[#3182f6] dark:text-primary-fixed-dim font-bold hover:opacity-80 transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center" href="index.html">홈</a>
-<a class="text-on-surface-variant dark:text-muted hover:opacity-80 transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center" href="news.html">매물소식</a>
-<a class="text-on-surface-variant dark:text-muted hover:opacity-80 transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center" href="news.html">재개발뉴스</a>
-<a class="text-on-surface-variant dark:text-muted hover:opacity-80 transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center" href="#consultation">상담예약</a>
+<a class="text-[#3182f6] dark:text-primary-fixed-dim font-bold hover:opacity-80 transition-opacity" href="index.html">홈</a>
+<a class="text-on-surface-variant dark:text-muted hover:opacity-80 transition-opacity" href="news.html">매물소식</a>
+<a class="text-on-surface-variant dark:text-muted hover:opacity-80 transition-opacity" href="news.html">재개발뉴스</a>
+<a class="text-on-surface-variant dark:text-muted hover:opacity-80 transition-opacity" href="admin.html">관리자</a>
 </nav>
-<button class="md:hidden text-on-surface hover:opacity-80 transition-opacity p-2 min-h-[44px] min-w-[44px]">
+<button class="md:hidden text-on-surface hover:opacity-80 transition-opacity" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
 <span class="material-symbols-outlined">menu</span>
 </button>
 </header>
-<main class="flex-grow flex flex-col items-center pb-24 md:pb-0">
+
+<div id="mobile-menu" class="hidden md:hidden bg-surface px-edge-margin py-4 border-b border-outline-variant/30 flex flex-col gap-3">
+<a class="text-[#3182f6] font-bold" href="index.html">홈</a>
+<a class="text-on-surface-variant" href="news.html">매물소식</a>
+<a class="text-on-surface-variant" href="news.html">재개발뉴스</a>
+<a class="text-on-surface-variant" href="admin.html">관리자</a>
+</div>
+
+<main class="flex-grow flex flex-col items-center">
+
 <section class="w-full max-w-7xl mx-auto px-edge-margin py-3xl flex flex-col md:flex-row items-center gap-xl">
 <div class="flex-1 flex flex-col items-start gap-lg z-10">
 <div class="bg-weak-background text-[#3182f6] px-4 py-2 rounded-full text-label-sm font-label-sm font-bold flex items-center gap-2">
@@ -137,23 +147,9 @@ try{
 </a>
 </div>
 <div class="flex-1 w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden relative shadow-lg">
-<img class="w-full h-full object-cover" alt="Landmark render" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpq2WNfN5xWXXz-ZVoPPjFdteL19fAL36U94qIqzzUfYpsIaX1H42TjzKynoxZ-1EMwekNnqXNiJnVeHUYKLgY5TmgeeU-NWpgx7TO85QB56BpzpLQViWJfP_XqBB3_yUhgw00kv1FHwubVXYDz4IRmbJWYvHMqdqMtqYonl40tTHor6m3CmqpG3XircoVL286tBuojS99usxYrBzHMhwC5xWZRFChFsTv-ygzBk3VJ_127FgamUAD"/>
+<img class="w-full h-full object-cover" alt="북항 랜드마크" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpq2WNfN5xWXXz-ZVoPPjFdteL19fAL36U94qIqzzUfYpsIaX1H42TjzKynoxZ-1EMwekNnqXNiJnVeHUYKLgY5TmgeeU-NWpgx7TO85QB56BpzpLQViWJfP_XqBB3_yUhgw00kv1FHwubVXYDz4IRmbJWYvHMqdqMtqYonl40tTHor6m3CmqpG3XircoVL286tBuojS99usxYrBzHMhwC5xWZRFChFsTv-ygzBk3VJ_127FgamUAD"/>
 <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
 </div>
-</section>
-
-<section id="board-preview-section" class="w-full max-w-7xl mx-auto px-edge-margin py-2xl flex flex-col gap-lg border-t border-outline-variant/30">
-<div class="flex justify-between items-end">
-<div class="flex flex-col gap-xs">
-<h2 class="text-headline-lg font-headline-lg text-on-surface">최신 소식</h2>
-<p class="text-body-md font-body-md text-muted">G7부동산이 전하는 최신 게시판 정보</p>
-</div>
-<a href="news.html" class="text-[#3182f6] font-bold text-body-sm flex items-center gap-1 hover:opacity-80">
-<span>전체 게시글 보기</span>
-<span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
-</a>
-</div>
-<div id="board-preview" class="grid grid-cols-1 md:grid-cols-3 gap-md"></div>
 </section>
 
 <section class="w-full max-w-7xl mx-auto px-edge-margin py-2xl flex flex-col gap-lg">
@@ -201,6 +197,19 @@ try{
 </div>
 </section>
 
+<section id="board-preview" class="w-full max-w-7xl mx-auto px-edge-margin py-2xl flex flex-col gap-lg bg-surface-container-low/50 rounded-2xl my-8">
+<div class="flex justify-between items-end">
+<div class="flex flex-col gap-xs">
+<h2 class="text-headline-lg font-headline-lg text-on-surface">최신 부동산 소식</h2>
+<p class="text-body-md font-body-md text-muted">북항재개발 관련 최신 뉴스 및 현장 소식</p>
+</div>
+<a href="news.html" class="text-[#3182f6] font-bold text-body-sm flex items-center gap-1 hover:opacity-80">
+<span>전체 게시글 보기 →</span>
+</a>
+</div>
+<div id="preview-cards" class="grid grid-cols-1 md:grid-cols-3 gap-md"></div>
+</section>
+
 <section class="w-full max-w-7xl mx-auto px-edge-margin py-2xl flex flex-col gap-lg bg-surface-container-lowest">
 <div class="flex justify-between items-end">
 <div class="flex flex-col gap-xs">
@@ -218,7 +227,7 @@ try{
 <span class="material-symbols-outlined" style="font-size: 14px;">recommend</span>
 <span>강력 추천</span>
 </div>
-<div class="w-full h-[250px]"><img class="w-full h-full object-cover" alt="Luxury apartment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVbIY9sQLTmg41-u1j1v6YD_84DAXQUnkznvMH6ZYgdemeHS22qt2bJpWcBzRV8hGdiqUbZs6fLl2x4XoKYAfyxFBY0owuO8hDk08MreWr2jdNms368VYHQBBz7LHEgOWOrHy7fAaobycJXgVbuj8wNoHuzZyDWHecSQeJqt8H24zeGlVEwYq-HW1pPGYjD6TC8Cu4jDLb3TPAua_JYLm2PAftZnztXyC91IYtEXoKWS8nQpNx_-52f3AQzs0JAX7N1W4YOsw2ZI7VMQ"/></div>
+<div class="w-full h-[250px]"><img class="w-full h-full object-cover" alt="G7 매물" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVbIY9sQLTmg41-u1j1v6YD_84DAXQUnkznvMH6ZYgdemeHS22qt2bJpWcBzRV8hGdiqUbZs6fLl2x4XoKYAfyxFBY0owuO8hDk08MreWr2jdNms368VYHQBBz7LHEgOWOrHy7fAaobycJXgVbuj8wNoHuzZyDWHecSQeJqt8H24zeGlVEwYq-HW1pPGYjD6TC8Cu4jDLb3TPAua_JYLm2PAftZnztXyC91IYtEXoKWS8nQpNx_-52f3AQzs0JAX7N1W4YOsw2ZI7VMQ"/></div>
 <div class="p-lg flex flex-col flex-grow justify-between gap-4">
 <div class="flex flex-col gap-2">
 <div class="flex gap-2">
@@ -241,7 +250,7 @@ try{
 <span class="material-symbols-outlined" style="font-size: 14px;">star</span>
 <span>인기 매물</span>
 </div>
-<div class="w-full h-[250px]"><img class="w-full h-full object-cover" alt="Residence" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc_FxoJG4SNXmhFlVQWEjIT70KnjuCyRKaJ_pg-SzaciNzoV6zMvjbTiPuJmHvmC2Oz_bGioH9EmrZOMG8q1KcatrnaozPqE3uKF_LBFlQtmgXjvoDuuN_VUCLhWzypgouNzgWAUCenj7bL1tQ4qKQJ30iHLiIkTccHT0PjOefe5E33uQBdeDScWLp6m0ERDJx8ucvcz_I0ljo3rDOpGPi1kzkckfy5uwV7UwX4e6MZhSRjjGRDA8MT_wsHt5pic8PtSiXsbavZFO4dA"/></div>
+<div class="w-full h-[250px]"><img class="w-full h-full object-cover" alt="드메르 매물" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc_FxoJG4SNXmhFlVQWEjIT70KnjuCyRKaJ_pg-SzaciNzoV6zMvjbTiPuJmHvmC2Oz_bGioH9EmrZOMG8q1KcatrnaozPqE3uKF_LBFlQtmgXjvoDuuN_VUCLhWzypgouNzgWAUCenj7bL1tQ4qKQJ30iHLiIkTccHT0PjOefe5E33uQBdeDScWLp6m0ERDJx8ucvcz_I0ljo3rDOpGPi1kzkckfy5uwV7UwX4e6MZhSRjjGRDA8MT_wsHt5pic8PtSiXsbavZFO4dA"/></div>
 <div class="p-lg flex flex-col flex-grow justify-between gap-4">
 <div class="flex flex-col gap-2">
 <div class="flex gap-2">
@@ -269,7 +278,7 @@ try{
 </div>
 <div class="bg-surface-container-lowest border border-outline-variant/30 rounded-[16px] p-lg flex flex-col md:flex-row items-center gap-xl shadow-sm">
 <div class="w-48 h-48 rounded-full overflow-hidden shrink-0 border-4 border-surface-container">
-<img alt="Agent Profile" class="w-full h-full object-cover" src="realtor_usc" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuAX1trlIoUsGO9UyfbevNcXQZqSCX__ouv0TMVonY00j7Ry01OlGJRA6t9wE70UdrqS_BxEsy5em76oSMxabtJaNVWe3s1aMOvK2Axubqiat5nV6yc7aetvyekSdNG3DqUmlX7KbvJTG6RDDT6H2pkj7V9PYyzq2-6LZRLdEom0CeiHKE8rHCws2JeKAp5vbIjVP6Eg_Ed4RWc_4b-wPVhhjLs7tv6nReKCtxCGVc995meX0HKUkUaJrZyCWB16g6KhAxzQmu8o0sA9OA'"/>
+<img alt="대표 공인중개사" class="w-full h-full object-cover" src="realtor.jpg"/>
 </div>
 <div class="flex flex-col gap-sm">
 <div>
@@ -293,7 +302,7 @@ try{
 </div>
 </section>
 
-<section id="consultation" class="w-full max-w-4xl mx-auto px-edge-margin py-2xl mb-xl">
+<section class="w-full max-w-4xl mx-auto px-edge-margin py-2xl mb-xl">
 <div class="bg-[#3182f6]/10 text-on-surface rounded-2xl p-lg flex flex-col md:flex-row items-center justify-between gap-lg relative overflow-hidden border border-[#3182f6]/20">
 <div class="flex flex-col gap-xs z-10 text-center md:text-left">
 <h2 class="text-headline-lg font-headline-lg font-bold text-[#3182f6]">북항 랜드마크 입성의 첫 걸음</h2>
@@ -307,36 +316,33 @@ try{
 </div>
 </div>
 </section>
+
 </main>
 
 <footer class="w-full px-edge-margin py-xl flex flex-col gap-sm bg-surface-container-low dark:bg-on-background border-t border-outline-variant/30">
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
 <span class="font-bold text-on-surface">북항재개발 랜드마크 전문 G7부동산</span>
-<div class="flex gap-4 items-center">
-<a class="text-label-sm font-label-sm text-muted hover:text-[#3182f6]" href="#">이용약관</a>
-<a class="text-label-sm font-label-sm text-muted hover:text-[#3182f6]" href="#">개인정보처리방침</a>
-<a id="agent-login-btn" class="text-label-sm font-label-sm text-[#3182f6] font-bold hover:underline" href="admin.html">Agent Login</a>
+<div class="flex gap-4">
+<a class="text-label-sm font-label-sm text-muted hover:text-[#3182f6]" href="index.html">홈</a>
+<a class="text-label-sm font-label-sm text-muted hover:text-[#3182f6]" href="news.html">게시판</a>
+<a id="agent-login-btn" class="text-label-sm font-label-sm text-muted hover:text-[#3182f6]" href="admin.html">Agent Login</a>
 </div>
 </div>
 <div class="text-body-sm font-body-sm text-muted mt-4">
-    © 2026 G7부동산공인중개사사무소. All rights reserved.
-</div>
+            © 2026 G7부동산공인중개사사무소. All rights reserved.
+        </div>
 </footer>
 
-<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 pb-safe bg-surface-container-lowest dark:bg-inverse-surface shadow-[0_-8px_24px_rgba(0,0,0,0.04)] rounded-t-xl">
-<a class="flex flex-col items-center justify-center text-[#3182f6] dark:text-primary-fixed-dim font-bold bg-[#3182f6]/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 min-h-[44px] min-w-[44px]" href="index.html">
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 pb-safe bg-surface-container-lowest shadow-[0_-8px_24px_rgba(0,0,0,0.04)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-[#3182f6] font-bold bg-[#3182f6]/10 rounded-xl px-3 py-1 scale-90" href="index.html">
 <span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1;'>home</span>
 <span class="text-label-sm font-label-sm">홈</span>
 </a>
-<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:bg-surface rounded-xl px-3 py-1 transition-all duration-150 min-h-[44px] min-w-[44px]" href="news.html">
-<span class="material-symbols-outlined">domain</span>
-<span class="text-label-sm font-label-sm">매물소식</span>
-</a>
-<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:bg-surface rounded-xl px-3 py-1 transition-all duration-150 min-h-[44px] min-w-[44px]" href="news.html">
+<a class="flex flex-col items-center justify-center text-secondary rounded-xl px-3 py-1" href="news.html">
 <span class="material-symbols-outlined">newspaper</span>
 <span class="text-label-sm font-label-sm">재개발뉴스</span>
 </a>
-<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:bg-surface rounded-xl px-3 py-1 transition-all duration-150 min-h-[44px] min-w-[44px]" href="admin.html">
+<a class="flex flex-col items-center justify-center text-secondary rounded-xl px-3 py-1" href="admin.html">
 <span class="material-symbols-outlined">admin_panel_settings</span>
 <span class="text-label-sm font-label-sm">관리자</span>
 </a>
@@ -345,33 +351,27 @@ try{
 <script src="db.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
-  const container = document.getElementById('board-preview');
-  const section = document.getElementById('board-preview-section');
+  const container = document.getElementById('preview-cards');
+  const section = document.getElementById('board-preview');
   if (!container || !section) return;
-  
+
   const posts = await getPosts();
   if (!posts || posts.length === 0) {
     section.style.display = 'none';
     return;
   }
-  
-  const latestPosts = posts.slice(0, 3);
-  container.innerHTML = latestPosts.map(p => {
-    const summary = markdownToText(p.content || '').slice(0, 60);
+
+  const latest = posts.slice(0, 3);
+  container.innerHTML = latest.map(post => {
+    const summary = markdownToText(post.content).slice(0, 60) + '...';
     return `
-      <div onclick="location.href='news-detail.html?id=${p.id}'" class="bg-surface rounded-2xl p-lg border border-outline-variant/30 flex flex-col justify-between cursor-pointer hover:shadow-md transition-shadow">
-        <div>
-          <div class="flex items-center justify-between mb-2">
-            <span class="bg-weak-background text-[#3182f6] px-2.5 py-1 rounded text-label-sm font-bold">${escapeHtml(p.category || '소식')}</span>
-            <span class="text-label-sm text-muted">${escapeHtml(p.date || '')}</span>
-          </div>
-          <h3 class="text-headline-md font-bold text-on-surface mb-2 line-clamp-1">${escapeHtml(p.title || '')}</h3>
-          <p class="text-body-sm text-secondary line-clamp-2">${escapeHtml(summary)}...</p>
+      <div onclick="location.href='news-detail.html?id=${post.id}'" class="bg-surface rounded-xl p-4 flex flex-col gap-3 hover:shadow-md transition-shadow cursor-pointer border border-outline-variant/20">
+        <div class="flex justify-between items-center">
+          <span class="px-2.5 py-0.5 bg-weak-background text-primary rounded-full text-label-sm font-bold">${escapeHtml(post.category || '뉴스')}</span>
+          <span class="text-label-sm text-muted">${escapeHtml(post.date || '')}</span>
         </div>
-        <div class="mt-4 pt-3 border-t border-outline-variant/20 flex items-center text-[#3182f6] text-body-sm font-bold">
-          <span>자세히 보기</span>
-          <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
-        </div>
+        <h3 class="text-headline-md font-bold text-on-surface line-clamp-1">${escapeHtml(post.title || '')}</h3>
+        <p class="text-body-sm text-secondary line-clamp-2">${escapeHtml(summary)}</p>
       </div>
     `;
   }).join('');

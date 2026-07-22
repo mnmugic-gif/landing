@@ -3,129 +3,136 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>글쓰기 / 수정 - 북항재개발 전문 G7부동산</title>
+<title>게시글 작성/수정 - G7부동산</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+try{
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "muted": "#8b95a1",
+                    "primary": "#0059b9",
+                    "secondary": "#545f6e",
+                    "on-surface": "#181c23",
+                    "background": "#f9f9ff",
+                    "surface": "#f2f4f6"
+                }
+            }
+        }
+    }
+}catch(_e){}
+</script>
 </head>
-<body class="antialiased min-h-screen flex flex-col font-body-md bg-background text-on-surface">
-<header class="bg-background dark:bg-on-background flex justify-between items-center h-16 px-edge-margin w-full sticky top-0 z-50 border-b border-outline-variant/30">
+<body class="antialiased min-h-screen flex flex-col font-body-md bg-background text-on-surface pb-24">
+
+<header class="bg-background flex justify-between items-center h-16 px-edge-margin w-full sticky top-0 z-50 shadow-sm border-b border-outline-variant/20">
 <div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">edit_note</span>
-<h1 id="page-heading" class="text-headline-md font-bold text-primary tracking-tight">게시글 작성</h1>
+<span class="material-symbols-outlined text-primary">location_on</span>
+<a href="index.html" class="text-headline-md font-headline-md font-bold text-primary tracking-tight">북항재개발 전문 G7부동산</a>
 </div>
-<div class="flex items-center gap-2">
-<a href="admin.html" class="px-4 py-2 bg-surface hover:bg-surface-variant rounded-lg text-body-sm font-bold text-secondary transition-colors">대시보드</a>
-</div>
+<nav class="hidden md:flex items-center gap-lg">
+<a href="index.html" class="text-secondary hover:opacity-80">홈</a>
+<a href="news.html" class="text-secondary hover:opacity-80">재개발뉴스</a>
+<a href="admin.html" class="text-primary font-bold">관리자</a>
+</nav>
 </header>
 
-<main class="flex-grow w-full max-w-4xl mx-auto px-edge-margin py-xl pb-32">
-<form id="write-form" class="bg-surface rounded-2xl p-lg border border-outline-variant/30 flex flex-col gap-6 shadow-sm">
-<div id="status-msg" class="hidden p-4 rounded-xl text-body-sm font-bold"></div>
+<main class="flex-grow w-full max-w-4xl mx-auto px-edge-margin py-xl flex flex-col gap-lg">
+<div class="flex justify-between items-center">
+<h1 id="form-title" class="text-headline-xl font-bold text-on-surface">게시글 작성</h1>
+<a href="admin.html" class="text-body-sm text-secondary hover:underline">취소</a>
+</div>
 
+<form id="write-form" class="bg-surface rounded-2xl p-6 md:p-8 border border-outline-variant/30 flex flex-col gap-6 shadow-sm">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div>
-<label class="block text-body-sm font-bold text-on-surface mb-2" for="category-input">카테고리</label>
-<select id="category-input" class="w-full p-3 bg-surface-container-lowest border border-outline-variant/50 rounded-xl text-body-md text-on-surface focus:outline-none focus:border-primary">
+<div class="flex flex-col gap-2">
+<label class="text-body-sm font-bold text-on-surface">카테고리</label>
+<select id="post-category-select" class="px-4 py-2.5 bg-background border border-outline-variant/50 rounded-lg text-body-sm focus:outline-none focus:border-primary">
 <option value="보도자료">보도자료</option>
 <option value="매물소식">매물소식</option>
 <option value="현장스케치">현장스케치</option>
-<option value="일반">일반</option>
 </select>
 </div>
-<div>
-<label class="block text-body-sm font-bold text-on-surface mb-2" for="date-input">작성일자</label>
-<input type="date" id="date-input" class="w-full p-3 bg-surface-container-lowest border border-outline-variant/50 rounded-xl text-body-md text-on-surface focus:outline-none focus:border-primary"/>
+
+<div class="flex flex-col gap-2">
+<label class="text-body-sm font-bold text-on-surface">작성일</label>
+<input id="post-date-input" type="text" placeholder="2026.03.22" class="px-4 py-2.5 bg-background border border-outline-variant/50 rounded-lg text-body-sm focus:outline-none focus:border-primary"/>
 </div>
 </div>
 
-<div>
-<label class="block text-body-sm font-bold text-on-surface mb-2" for="title-input">제목</label>
-<input type="text" id="title-input" required placeholder="게시글 제목을 입력하세요" class="w-full p-3 bg-surface-container-lowest border border-outline-variant/50 rounded-xl text-body-md text-on-surface focus:outline-none focus:border-primary"/>
+<div class="flex flex-col gap-2">
+<label class="text-body-sm font-bold text-on-surface">제목</label>
+<input id="post-title-input" type="text" required placeholder="제목을 입력하세요" class="px-4 py-2.5 bg-background border border-outline-variant/50 rounded-lg text-body-sm focus:outline-none focus:border-primary"/>
 </div>
 
-<div>
-<div class="flex justify-between items-center mb-2">
-<label class="block text-body-sm font-bold text-on-surface" for="content-input">본문 (마크다운 지원)</label>
-<span class="text-label-sm text-muted"># 제목, **굵게**, - 목록, [링크](URL) 사용 가능</span>
-</div>
-<textarea id="content-input" rows="14" required placeholder="마크다운 양식으로 본문을 작성하세요..." class="w-full p-4 bg-surface-container-lowest border border-outline-variant/50 rounded-xl text-body-md text-on-surface focus:outline-none focus:border-primary font-mono leading-relaxed"></textarea>
+<div class="flex flex-col gap-2">
+<label class="text-body-sm font-bold text-on-surface">썸네일 이미지 URL (선택사항)</label>
+<input id="post-thumb-input" type="url" placeholder="https://..." class="px-4 py-2.5 bg-background border border-outline-variant/50 rounded-lg text-body-sm focus:outline-none focus:border-primary"/>
 </div>
 
-<div class="flex justify-end gap-3 pt-4 border-t border-outline-variant/30">
-<a href="admin.html" class="px-6 py-3 bg-surface-variant text-on-surface-variant font-bold rounded-xl hover:opacity-80 transition-opacity">취소</a>
-<button type="submit" id="submit-btn" class="px-8 py-3 bg-primary text-white font-bold rounded-xl hover:opacity-90 transition-opacity flex items-center gap-2">
-<span class="material-symbols-outlined" style="font-size: 20px;">save</span>
-<span id="submit-text">게시글 저장</span>
-</button>
+<div class="flex flex-col gap-2">
+<label class="text-body-sm font-bold text-on-surface">본문 내용 (마크다운 지원)</label>
+<textarea id="post-content-input" rows="12" required placeholder="마크다운 문법으로 본문을 입력하세요..." class="px-4 py-2.5 bg-background border border-outline-variant/50 rounded-lg text-body-sm focus:outline-none focus:border-primary font-mono"></textarea>
+</div>
+
+<div class="flex justify-end gap-3 pt-4 border-t border-outline-variant/20">
+<a href="admin.html" class="px-6 py-3 bg-surface-variant text-on-surface-variant font-bold rounded-xl text-body-md hover:opacity-80">취소</a>
+<button type="submit" id="save-btn" class="px-8 py-3 bg-primary text-white font-bold rounded-xl text-body-md hover:opacity-90 transition-opacity">저장하기</button>
 </div>
 </form>
 </main>
 
 <script src="db.js"></script>
 <script>
-let editingPostId = null;
+let editId = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   requireAdmin();
 
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('date-input').value = today;
-
   const urlParams = new URLSearchParams(window.location.search);
-  editingPostId = urlParams.get('id');
+  editId = urlParams.get('id');
 
-  if (editingPostId) {
-    document.getElementById('page-heading').textContent = '게시글 수정';
-    document.getElementById('submit-text').textContent = '수정사항 저장';
-    
-    const posts = await getPosts();
-    const post = posts.find(p => p.id === editingPostId);
+  const today = new Date().toISOString().split('T')[0].replace(/-/g, '.');
+  document.getElementById('post-date-input').value = today;
+
+  if (editId) {
+    document.getElementById('form-title').innerText = '게시글 수정';
+    const post = await getPostById(editId);
     if (post) {
-      document.getElementById('title-input').value = post.title || '';
-      document.getElementById('category-input').value = post.category || '보도자료';
-      document.getElementById('date-input').value = post.date || today;
-      document.getElementById('content-input').value = post.content || '';
+      document.getElementById('post-category-select').value = post.category || '보도자료';
+      document.getElementById('post-date-input').value = post.date || today;
+      document.getElementById('post-title-input').value = post.title || '';
+      document.getElementById('post-thumb-input').value = post.thumbnail || '';
+      document.getElementById('post-content-input').value = post.content || '';
     }
   }
 
-  const form = document.getElementById('write-form');
-  form.addEventListener('submit', async (e) => {
+  document.getElementById('write-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    
-    const submitBtn = document.getElementById('submit-btn');
-    const statusMsg = document.getElementById('status-msg');
-    submitBtn.disabled = true;
-    submitBtn.classList.add('opacity-50');
-
-    statusMsg.className = 'p-4 rounded-xl text-body-sm font-bold bg-weak-background text-primary flex items-center gap-2';
-    statusMsg.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">progress_activity</span> 저장 및 GitHub 동기화 중...';
-    statusMsg.classList.remove('hidden');
+    const saveBtn = document.getElementById('save-btn');
+    saveBtn.disabled = true;
+    saveBtn.innerText = '저장 중...';
 
     const postData = {
-      title: document.getElementById('title-input').value.trim(),
-      category: document.getElementById('category-input').value,
-      date: document.getElementById('date-input').value,
-      content: document.getElementById('content-input').value
+      id: editId ? Number(editId) : undefined,
+      category: document.getElementById('post-category-select').value,
+      date: document.getElementById('post-date-input').value.trim() || today,
+      title: document.getElementById('post-title-input').value.trim(),
+      thumbnail: document.getElementById('post-thumb-input').value.trim(),
+      content: document.getElementById('post-content-input').value.trim()
     };
-    if (editingPostId) {
-      postData.id = editingPostId;
-    }
 
-    const { posts, syncResult } = await savePost(postData);
-
-    if (syncResult && !syncResult.success) {
-      statusMsg.className = 'p-4 rounded-xl text-body-sm font-bold bg-error-container text-on-error-container';
-      statusMsg.textContent = '로컬 저장은 완료되었으나 GitHub API 푸시 실패: ' + syncResult.error;
-      setTimeout(() => {
-        window.location.href = 'admin.html';
-      }, 2000);
-    } else {
-      statusMsg.className = 'p-4 rounded-xl text-body-sm font-bold bg-primary-container text-on-primary-container';
-      statusMsg.textContent = '성공적으로 저장 및 동기화되었습니다!';
-      setTimeout(() => {
-        window.location.href = 'admin.html';
-      }, 1000);
+    try {
+      const saved = await savePost(postData);
+      window.location.href = `news-detail.html?id=${saved.id}`;
+    } catch (err) {
+      alert('저장 중 오류가 발생했습니다: ' + err.message);
+      saveBtn.disabled = false;
+      saveBtn.innerText = '저장하기';
     }
   });
 });

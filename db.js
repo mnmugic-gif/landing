@@ -27,6 +27,11 @@ function requireAdmin() {
   }
 }
 
+function handleAgentLogin(e) {
+  if (e) e.preventDefault();
+  window.location.href = 'admin.html';
+}
+
 function escapeHtml(str) {
   if (!str) return '';
   return String(str)
@@ -37,194 +42,240 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
-function markdownToText(src) {
-  if (!src) return '';
-  let text = src;
+function markdownToText(md) {
+  if (!md) return '';
+  let text = String(md);
   text = text.replace(/```[\s\S]*?```/g, '');
   text = text.replace(/`([^`]+)`/g, '$1');
-  text = text.replace(/#+\s+/g, '');
-  text = text.replace(/(\*\*|__)(.*?)\1/g, '$2');
-  text = text.replace(/(\*|_)(.*?)\1/g, '$2');
-  text = text.replace(/~~(.*?)~~/g, '$1');
+  text = text.replace(/^#+\s+/gm, '');
+  text = text.replace(/\*\*([^*]+)\*\*/g, '$1');
+  text = text.replace(/\*([^*]+)\*/g, '$1');
+  text = text.replace(/~~([^~]+)~~/g, '$1');
   text = text.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
-  text = text.replace(/^\s*[-*+]\s+/gm, '');
-  text = text.replace(/^\s*\d+\.\s+/gm, '');
-  text = text.replace(/^\s*>\s+/gm, '');
+  text = text.replace(/^>\s+/gm, '');
+  text = text.replace(/^[-*+]\s+/gm, '');
+  text = text.replace(/^\d+\.\s+/gm, '');
+  text = text.replace(/---/g, '');
   return text.trim();
 }
 
 function renderMarkdown(src) {
   if (!src) return '';
   const escaped = escapeHtml(src);
-  let html = escaped;
-
-  html = html.replace(/```([\s\S]*?)```/g, function(match, code) {
-    return '<pre class="bg-surface-variant/50 p-4 rounded-lg my-4 overflow-x-auto text-body-sm font-mono"><code>' + code.trim() + '</code></pre>';
-  });
-
-  const parts = html.split(/(`[^`]+`)/g);
-  for (let i = 0; i < parts.length; i++) {
-    if (parts[i].startsWith('`') && parts[i].endsWith('`') && parts[i].length >= 2) {
-      const codeContent = parts[i].slice(1, -1);
-      parts[i] = '<code class="bg-surface-variant/60 px-1.5 py-0.5 rounded text-body-sm font-mono text-primary">' + codeContent + '</code>';
-    }
-  }
-  html = parts.join('');
-
-  html = html.replace(/^### (.*$)/gim, '<h3 class="text-headline-md font-headline-md font-bold mt-6 mb-3 text-on-surface">$1</h3>');
-  html = html.replace(/^## (.*$)/gim, '<h2 class="text-headline-lg font-headline-lg font-bold mt-8 mb-4 text-on-surface">$1</h2>');
-  html = html.replace(/^# (.*$)/gim, '<h1 class="text-headline-xl font-headline-xl font-bold mt-8 mb-4 text-on-surface">$1</h1>');
-
-  html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-on-surface">$1</strong>');
-  html = html.replace(/\*(.*?)\*/g, '<em class="italic">$1</em>');
-  html = html.replace(/~~(.*?)~~/g, '<del class="line-through text-muted">$1</del>');
-
-  html = html.replace(/^\s*>\s*(.*$)/gim, '<blockquote class="border-l-4 border-primary pl-4 py-2 my-4 bg-weak-background/30 rounded-r-lg text-secondary italic">$1</blockquote>');
-  html = html.replace(/^---$/gim, '<hr class="my-6 border-outline-variant/40"/>');
-
-  html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g, function(match, text, url) {
-    return '<a href="' + url + '" target="_blank" rel="noopener noreferrer" class="text-primary underline hover:opacity-80">' + text + '</a>';
-  });
-
-  const lines = html.split(/\r?\n/);
-  let result = [];
+  const lines = escaped.split(/\r?\n/);
+  let html = '';
   let inList = false;
   let listType = null;
+  let inCodeBlock = false;
+  let codeBlockBuffer = [];
 
   for (let i = 0; i < lines.length; i++) {
     let line = lines[i];
-    const isUnordered = /^\s*[-*+]\s+(.*)/.test(line);
-    const isOrdered = /^\s*\d+\.\s+(.*)/.test(line);
 
-    if (isUnordered || isOrdered) {
-      const currentType = isUnordered ? 'ul' : 'ol';
-      const content = line.replace(/^\s*([-*+]|\d+\.)\s+/, '');
-      if (!inList) {
-        inList = true;
-        listType = currentType;
-        result.push(currentType === 'ul' ? '<ul class="list-disc list-inside space-y-1.5 my-3 text-secondary">' : '<ol class="list-decimal list-inside space-y-1.5 my-3 text-secondary">');
-      }
-      result.push('  <li>' + content + '</li>');
-    } else {
-      if (inList) {
-        result.push(listType === 'ul' ? '</ul>' : '</ol>');
-        inList = false;
-        listType = null;
-      }
-      if (line.trim() !== '' && !line.startsWith('<h') && !line.startsWith('<pre') && !line.startsWith('<blockquote') && !line.startsWith('<hr')) {
-        result.push('<p class="my-3 text-body-md text-secondary leading-relaxed">' + line + '</p>');
+    if (line.trim().startsWith('```')) {
+      if (inCodeBlock) {
+        html += `<pre class="bg-surface-container p-4 rounded-lg my-4 overflow-x-auto text-body-sm font-mono"><code>${codeBlockBuffer.join('\n')}</code></pre>`;
+        codeBlockBuffer = [];
+        inCodeBlock = false;
       } else {
-        result.push(line);
+        if (inList) { html += listType === 'ol' ? '</ol>' : '</ul>'; inList = false; }
+        inCodeBlock = true;
       }
+      continue;
+    }
+
+    if (inCodeBlock) {
+      codeBlockBuffer.push(line);
+      continue;
+    }
+
+    if (line.trim() === '') {
+      if (inList) { html += listType === 'ol' ? '</ol>' : '</ul>'; inList = false; }
+      continue;
+    }
+
+    if (line.startsWith('---')) {
+      if (inList) { html += listType === 'ol' ? '</ol>' : '</ul>'; inList = false; }
+      html += `<hr class="my-6 border-outline-variant/40" />`;
+      continue;
+    }
+
+    const h3Match = line.match(/^###\s+(.+)$/);
+    const h2Match = line.match(/^##\s+(.+)$/);
+    const h1Match = line.match(/^#\s+(.+)$/);
+
+    if (h3Match || h2Match || h1Match) {
+      if (inList) { html += listType === 'ol' ? '</ol>' : '</ul>'; inList = false; }
+      let content = parseInline(h3Match ? h3Match[1] : h2Match ? h2Match[1] : h1Match[1]);
+      if (h1Match) html += `<h1 class="text-headline-xl font-bold my-4 text-on-surface">${content}</h1>`;
+      else if (h2Match) html += `<h2 class="text-headline-lg font-bold my-3 text-on-surface">${content}</h2>`;
+      else html += `<h3 class="text-headline-md font-bold my-2 text-on-surface">${content}</h3>`;
+      continue;
+    }
+
+    const quoteMatch = line.match(/^&gt;\s+(.+)$/);
+    if (quoteMatch) {
+      if (inList) { html += listType === 'ol' ? '</ol>' : '</ul>'; inList = false; }
+      html += `<blockquote class="border-l-4 border-primary pl-4 py-2 my-4 bg-weak-background/50 rounded-r text-secondary font-medium">${parseInline(quoteMatch[1])}</blockquote>`;
+      continue;
+    }
+
+    const ulMatch = line.match(/^[-*+]\s+(.+)$/);
+    const olMatch = line.match(/^\d+\.\s+(.+)$/);
+
+    if (ulMatch || olMatch) {
+      const type = olMatch ? 'ol' : 'ul';
+      const itemContent = parseInline(olMatch ? olMatch[1] : ulMatch[1]);
+      if (!inList || listType !== type) {
+        if (inList) html += listType === 'ol' ? '</ol>' : '</ul>';
+        html += type === 'ol' ? `<ol class="list-decimal list-inside my-3 space-y-1 text-secondary">` : `<ul class="list-disc list-inside my-3 space-y-1 text-secondary">`;
+        inList = true;
+        listType = type;
+      }
+      html += `<li>${itemContent}</li>`;
+      continue;
+    }
+
+    if (inList) { html += listType === 'ol' ? '</ol>' : '</ul>'; inList = false; }
+    html += `<p class="my-3 text-body-md text-secondary leading-relaxed">${parseInline(line)}</p>`;
+  }
+
+  if (inList) { html += listType === 'ol' ? '</ol>' : '</ul>'; }
+  if (inCodeBlock) {
+    html += `<pre class="bg-surface-container p-4 rounded-lg my-4 overflow-x-auto text-body-sm font-mono"><code>${codeBlockBuffer.join('\n')}</code></pre>`;
+  }
+
+  return html;
+}
+
+function parseInline(text) {
+  if (!text) return '';
+  const parts = text.split(/`([^`]+)`/g);
+  let result = '';
+  for (let i = 0; i < parts.length; i++) {
+    if (i % 2 === 1) {
+      result += `<code class="bg-surface-variant px-1.5 py-0.5 rounded text-label-sm font-mono text-primary">${parts[i]}</code>`;
+    } else {
+      let sub = parts[i];
+      sub = sub.replace(/\*\*([^*]+)\*\*/g, '<strong class="font-bold text-on-surface">$1</strong>');
+      sub = sub.replace(/\*([^*]+)\*/g, '<em class="italic">$1</em>');
+      sub = sub.replace(/~~([^~]+)~~/g, '<del class="line-through">$1</del>');
+      sub = sub.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-primary underline hover:opacity-80">$1</a>');
+      result += sub;
     }
   }
-  if (inList) {
-    result.push(listType === 'ul' ? '</ul>' : '</ol>');
-  }
-
-  return result.join('\n');
-}
-
-function utf8ToBase64(str) {
-  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
-    return String.fromCharCode('0x' + p1);
-  }));
-}
-
-function base64ToUtf8(str) {
-  return decodeURIComponent(Array.from(atob(str.replace(/\s+/g, ''))).map(function(c) {
-    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
+  return result;
 }
 
 async function getPosts() {
-  const local = localStorage.getItem('realty_board_posts');
-  if (local) {
-    try { return JSON.parse(local); } catch(e) {}
-  }
   try {
-    const res = await fetch('data/posts.json');
+    const res = await fetch('data/posts.json?t=' + Date.now());
     if (res.ok) {
       const posts = await res.json();
-      localStorage.setItem('realty_board_posts', JSON.stringify(posts));
+      localStorage.setItem('local_posts', JSON.stringify(posts));
       return posts;
     }
-  } catch(e) {}
-  return [];
+  } catch (e) {}
+  const cached = localStorage.getItem('local_posts');
+  return cached ? JSON.parse(cached) : [];
 }
 
-async function syncToGitHub(posts) {
-  const cfg = await loadConfig();
-  const rawToken = String(cfg.github_token || '').replace(/\s+/g, '');
-  if (!rawToken || rawToken === 'YOUR_GITHUB_TOKEN' || !cfg.github_owner || !cfg.github_repo) {
-    return { success: false, error: 'GitHub 토큰 또는 저장소 정보가 설정되지 않았습니다.' };
-  }
+async function getPostById(id) {
+  const posts = await getPosts();
+  return posts.find(p => String(p.id) === String(id)) || null;
+}
 
-  const url = `https://api.github.com/repos/${cfg.github_owner}/${cfg.github_repo}/contents/${cfg.data_file_path}`;
-  const headers = {
-    'Authorization': `token ${rawToken}`,
-    'Accept': 'application/vnd.github.v3+json',
-    'Content-Type': 'application/json'
-  };
-
-  let sha = null;
-  try {
-    const getRes = await fetch(url, { headers });
-    if (getRes.ok) {
-      const data = await getRes.json();
-      sha = data.sha;
-    }
-  } catch(e) {}
-
-  const contentStr = JSON.stringify(posts, null, 2);
-  const base64Content = utf8ToBase64(contentStr);
-
-  const payload = {
-    message: 'feat: update posts data via admin board',
-    content: base64Content
-  };
-  if (sha) payload.sha = sha;
-
-  try {
-    const putRes = await fetch(url, {
-      method: 'PUT',
-      headers,
-      body: JSON.stringify(payload)
-    });
-    if (putRes.ok) {
-      return { success: true };
-    } else {
-      const errJson = await putRes.json().catch(() => ({}));
-      return { success: false, error: errJson.message || `GitHub API 오류 (${putRes.status})` };
-    }
-  } catch(e) {
-    return { success: false, error: e.message || '네트워크 오류가 발생했습니다.' };
-  }
+function utf8ToBase64(str) {
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1)));
 }
 
 async function savePost(postData) {
   const posts = await getPosts();
-  let updatedPosts;
-  if (postData.id) {
-    updatedPosts = posts.map(p => p.id === postData.id ? { ...p, ...postData } : p);
+  let updatedPost = null;
+  const numId = Number(postData.id);
+
+  if (postData.id && posts.some(p => Number(p.id) === numId)) {
+    const idx = posts.findIndex(p => Number(p.id) === numId);
+    posts[idx] = { ...posts[idx], ...postData, id: numId };
+    updatedPost = posts[idx];
   } else {
-    const newPost = {
-      ...postData,
-      id: 'post-' + Date.now(),
-      date: postData.date || new Date().toISOString().split('T')[0]
+    const newId = Date.now();
+    const today = new Date().toISOString().split('T')[0].replace(/-/g, '.');
+    updatedPost = {
+      id: newId,
+      category: postData.category || '보도자료',
+      title: postData.title || '제목 없음',
+      date: postData.date || today,
+      content: postData.content || '',
+      thumbnail: postData.thumbnail || ''
     };
-    updatedPosts = [newPost, ...posts];
+    posts.unshift(updatedPost);
   }
 
-  localStorage.setItem('realty_board_posts', JSON.stringify(updatedPosts));
-  const syncResult = await syncToGitHub(updatedPosts);
-  return { posts: updatedPosts, syncResult };
+  localStorage.setItem('local_posts', JSON.stringify(posts));
+  await syncToGithub(posts);
+  return updatedPost;
 }
 
-async function deletePost(postId) {
-  const posts = await getPosts();
-  const updatedPosts = posts.filter(p => p.id !== postId);
-  localStorage.setItem('realty_board_posts', JSON.stringify(updatedPosts));
-  const syncResult = await syncToGitHub(updatedPosts);
-  return { posts: updatedPosts, syncResult };
+async function deletePost(id) {
+  let posts = await getPosts();
+  posts = posts.filter(p => String(p.id) !== String(id));
+  localStorage.setItem('local_posts', JSON.stringify(posts));
+  await syncToGithub(posts);
+  return true;
+}
+
+async function syncToGithub(posts) {
+  const config = await loadConfig();
+  const token = String(config.github_token || '').replace(/\s+/g, '').trim();
+  const owner = config.github_owner;
+  const repo = config.github_repo;
+  const path = config.data_file_path || 'data/posts.json';
+
+  if (!token || token === 'YOUR_GITHUB_TOKEN' || !owner || !repo) {
+    return;
+  }
+
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+  let sha = null;
+
+  try {
+    const getRes = await fetch(url, {
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    if (getRes.ok) {
+      const getJson = await getRes.json();
+      sha = getJson.sha;
+    }
+  } catch (e) {}
+
+  const jsonStr = JSON.stringify(posts, null, 2);
+  const contentBase64 = utf8ToBase64(jsonStr);
+
+  const body = {
+    message: 'feat: update board posts via web admin',
+    content: contentBase64
+  };
+  if (sha) body.sha = sha;
+
+  try {
+    const putRes = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/vnd.github.v3+json'
+      },
+      body: JSON.stringify(body)
+    });
+    if (!putRes.ok) {
+      const errText = await putRes.text();
+      console.warn('GitHub Sync status:', putRes.status, errText);
+    }
+  } catch (e) {
+    console.error('GitHub Sync network error:', e);
+  }
 }

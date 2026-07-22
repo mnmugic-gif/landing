@@ -168,6 +168,16 @@ function parseInline(text) {
 }
 
 async function getPosts() {
+  const cached = localStorage.getItem('local_posts');
+  if (cached) {
+    try {
+      const parsed = JSON.parse(cached);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    } catch (e) {}
+  }
+
   try {
     const res = await fetch('data/posts.json?t=' + Date.now());
     if (res.ok) {
@@ -176,8 +186,8 @@ async function getPosts() {
       return posts;
     }
   } catch (e) {}
-  const cached = localStorage.getItem('local_posts');
-  return cached ? JSON.parse(cached) : [];
+
+  return [];
 }
 
 async function getPostById(id) {
@@ -192,11 +202,18 @@ function utf8ToBase64(str) {
 async function savePost(postData) {
   const posts = await getPosts();
   let updatedPost = null;
-  const numId = Number(postData.id);
+  const targetId = (postData.id !== undefined && postData.id !== null) ? String(postData.id) : null;
 
-  if (postData.id && posts.some(p => Number(p.id) === numId)) {
-    const idx = posts.findIndex(p => Number(p.id) === numId);
-    posts[idx] = { ...posts[idx], ...postData, id: numId };
+  if (targetId && posts.some(p => String(p.id) === targetId)) {
+    const idx = posts.findIndex(p => String(p.id) === targetId);
+    posts[idx] = {
+      ...posts[idx],
+      category: postData.category || posts[idx].category,
+      title: postData.title || posts[idx].title,
+      date: postData.date || posts[idx].date,
+      content: postData.content !== undefined ? postData.content : posts[idx].content,
+      thumbnail: postData.thumbnail !== undefined ? postData.thumbnail : posts[idx].thumbnail
+    };
     updatedPost = posts[idx];
   } else {
     const newId = Date.now();
@@ -213,7 +230,7 @@ async function savePost(postData) {
   }
 
   localStorage.setItem('local_posts', JSON.stringify(posts));
-  await syncToGithub(posts);
+  syncToGithub(posts).catch(err => console.warn('GitHub Sync background warning:', err));
   return updatedPost;
 }
 
@@ -221,7 +238,7 @@ async function deletePost(id) {
   let posts = await getPosts();
   posts = posts.filter(p => String(p.id) !== String(id));
   localStorage.setItem('local_posts', JSON.stringify(posts));
-  await syncToGithub(posts);
+  syncToGithub(posts).catch(e => console.warn(e));
   return true;
 }
 
